@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using Microsoft.WindowsAzure;
 
 namespace Magurany.Data.TableStorageClient.Test
 {

@@ -3,7 +3,7 @@
 
 	<Target Name="BeforeBuild">
 		<Copy
-			SourceFiles="$(SolutionDir)TableStorageDataProvider\$(OutDir)Magurany.Data.TableStorageClient.dll;
+			SourceFiles="$(SolutionDir)TableStorageClient\$(OutDir)Magurany.Data.TableStorageClient.dll;
 			             $(SolutionDir)packages\WindowsAzure.Storage.1.7.0.0\lib\net35-full\Microsoft.WindowsAzure.StorageClient.dll"
 			DestinationFolder="$(OutDir)"
 			SkipUnchangedFiles="false">
