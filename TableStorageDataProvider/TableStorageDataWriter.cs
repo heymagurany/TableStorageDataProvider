@@ -60,7 +60,6 @@ namespace Magurany.Data.TableStorage
 			if((value == null) || DBNull.Value.Equals(value))
 			{
 				m_Writer.WriteAttributeString("null", TableStorageConstants.Edm.NAMESPACE, "true");
-				m_Writer.WriteValue(null);
 			}
 			else
 			{
