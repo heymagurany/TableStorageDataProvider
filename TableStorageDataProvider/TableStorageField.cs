@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Magurany.Data.TableStorage
+namespace Magurany.Data.TableStorageClient
 {
 	internal sealed class TableStorageField
 	{

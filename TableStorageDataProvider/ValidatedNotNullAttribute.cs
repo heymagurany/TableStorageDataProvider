@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Magurany.Data.TableStorage
+namespace Magurany.Data.TableStorageClient
 {
 	/// <summary>
 	/// When applied to a parameter, informs the static code analysis engine that the parameter

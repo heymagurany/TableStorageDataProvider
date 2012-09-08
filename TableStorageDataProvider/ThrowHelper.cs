@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Magurany.Data.TableStorage.Properties;
+using Magurany.Data.TableStorageClient.Properties;
 
-namespace Magurany.Data.TableStorage
+namespace Magurany.Data.TableStorageClient
 {
 	/// <summary>
 	/// Contains methods that throw exceptions with consistant messages.

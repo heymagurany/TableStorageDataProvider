@@ -6,7 +6,7 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.Xml;
 
-namespace Magurany.Data.TableStorage
+namespace Magurany.Data.TableStorageClient
 {
 	[Serializable]
 	public sealed class TableStorageException : DbException

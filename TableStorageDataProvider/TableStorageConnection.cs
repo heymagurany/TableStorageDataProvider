@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.Common;
 using Microsoft.WindowsAzure;
 
-namespace Magurany.Data.TableStorage
+namespace Magurany.Data.TableStorageClient
 {
 	public sealed class TableStorageConnection : DbConnection
 	{
@@ -11,10 +11,9 @@ namespace Magurany.Data.TableStorage
 		private string m_ConnectionString;
 		private CloudStorageAccount m_StorageAccount;
 
-		public TableStorageConnection(string connectionString)
+		public TableStorageConnection()
 		{
 			m_State = ConnectionState.Closed;
-			m_ConnectionString = connectionString;
 		}
 
 		public override string ConnectionString

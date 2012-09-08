@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.Common;
 
-namespace Magurany.Data.TableStorage
+namespace Magurany.Data.TableStorageClient
 {
 	public sealed class TableStorageTransaction : DbTransaction
 	{

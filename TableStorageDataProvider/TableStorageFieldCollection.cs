@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace Magurany.Data.TableStorage
+namespace Magurany.Data.TableStorageClient
 {
 	internal sealed class TableStorageFieldCollection : KeyedCollection<string, TableStorageField>
 	{

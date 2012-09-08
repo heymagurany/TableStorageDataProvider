@@ -1,4 +1,4 @@
-﻿namespace Magurany.Data.TableStorage
+﻿namespace Magurany.Data.TableStorageClient
 {
 	internal static class TableStorageConstants
 	{

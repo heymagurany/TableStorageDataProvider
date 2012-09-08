@@ -5,7 +5,7 @@ using System.Data.Common;
 using System.IO;
 using System.Xml;
 
-namespace Magurany.Data.TableStorage
+namespace Magurany.Data.TableStorageClient
 {
 	public sealed class TableStorageDataReader : DbDataReader
 	{

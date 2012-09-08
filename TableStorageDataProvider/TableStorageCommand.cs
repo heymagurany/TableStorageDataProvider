@@ -4,9 +4,10 @@ using System.Data.Common;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using Magurany.Data.TableStorageClient.Properties;
 using Microsoft.WindowsAzure.StorageClient;
 
-namespace Magurany.Data.TableStorage
+namespace Magurany.Data.TableStorageClient
 {
 	public sealed class TableStorageCommand : DbCommand
 	{
@@ -79,7 +80,7 @@ namespace Magurany.Data.TableStorage
 			{
 				if(parameter.Direction != ParameterDirection.Input)
 				{
-					throw new TableStorageException(string.Format("Only '{0}' is supported.", ParameterDirection.Input));
+					throw new TableStorageException(string.Format(Resources.ParamterDirectionNotSupported, ParameterDirection.Input));
 				}
 
 				TableStorageField field = ToField(parameter);
@@ -188,7 +189,12 @@ namespace Magurany.Data.TableStorage
 
 		private HttpWebRequest GetRequest(TableStorageFieldCollection parameters)
 		{
-			Regex queryExpression = new Regex(@"^(?<verb>GET|POST|PUT|DELETE)\s*/(?<path>(?<tablename>[a-z][a-z0-9]{2,63}).*)$", RegexOptions.IgnoreCase);
+			if(m_Connection.State != ConnectionState.Open)
+			{
+				throw new TableStorageException(Resources.ConnectionNotOpen);
+			}
+
+			Regex queryExpression = new Regex(@"^(?<verb>GET|POST|PUT|DELETE)\s*(?<path>/(?<tablename>[a-z][a-z0-9]{2,63}).*)$", RegexOptions.IgnoreCase);
 			Match queryMatch = queryExpression.Match(CommandText);
 			string verb = queryMatch.Groups["verb"].Value;
 			string tableName = queryMatch.Groups["tablename"].Value;
@@ -212,7 +218,7 @@ namespace Magurany.Data.TableStorage
 					return string.Format(parameter.FormatString, parameter.Value);
 				}
 
-				throw new TableStorageException(string.Format("The expected parameter, '{0},' was not found.", parameterName));
+				throw new TableStorageException(string.Format(Resources.ParameterNotFound, parameterName));
 			};
 
 			path = parametersExpression.Replace(path, evaluator);
@@ -223,10 +229,10 @@ namespace Magurany.Data.TableStorage
 
 			// TODO (Matt Magurany 8/14/2012): If a transaction exists, add to existing batch
 
-			Uri relativeUrl = new Uri(path, UriKind.Relative);
-			Uri address = new Uri(tableClient.BaseUri, relativeUrl);
+			UriBuilder builder = new UriBuilder(tableClient.BaseUri);
+			builder.Path = builder.Path.TrimEnd('/') + path;
 
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(address);
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(builder.Uri);
 			request.Accept = "application/atom+xml,application/xml";
 			request.Headers["x-ms-version"] = m_Connection.ServerVersion;
 			request.Headers["Accept-Charset"] = "UTF-8";
@@ -308,7 +314,7 @@ namespace Magurany.Data.TableStorage
 					formatString = "'{0}'";
 					break;
 				default:
-					throw new NotSupportedException(string.Format("The Type, '{0},' is not supported.", parameter.DbType));
+					throw new NotSupportedException(string.Format(Resources.TypeNotSupported, parameter.DbType));
 			}
 
 			return new TableStorageField(value, edmType, parameter.ParameterName, isNull, dataType, formatString);

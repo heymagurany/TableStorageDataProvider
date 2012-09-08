@@ -3,9 +3,8 @@ using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 using System.Security;
 using System.Security.Permissions;
-using Microsoft.WindowsAzure;
 
-namespace Magurany.Data.TableStorage
+namespace Magurany.Data.TableStorageClient
 {
 	public sealed class TableStorageClientFactory : DbProviderFactory
 	{
@@ -27,9 +26,7 @@ namespace Magurany.Data.TableStorage
 
 		public override DbConnection CreateConnection()
 		{
-			string connectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
-
-			return new TableStorageConnection(connectionString);
+			return new TableStorageConnection();
 		}
 
 		public override DbConnectionStringBuilder CreateConnectionStringBuilder()
