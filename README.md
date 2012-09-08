@@ -1,0 +1,1 @@
+.NET Framework data provder intended to allow developers to write ADO.NET code against Windows Azure Table Storage
