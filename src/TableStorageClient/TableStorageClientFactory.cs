@@ -9,7 +9,6 @@ namespace Magurany.Data.TableStorageClient
 	public sealed class TableStorageClientFactory : DbProviderFactory
 	{
 		[SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification = "This field is required by the data provider infrastructure.")]
-		[SuppressMessage("Passageways.NamingRules", "PW0001:PrivateNamingConventions", Justification = "The field is not private, but static and read-only, so it's okay for it to be public.")]
 		public static readonly TableStorageClientFactory Instance = new TableStorageClientFactory();
 
 		private TableStorageClientFactory() { }

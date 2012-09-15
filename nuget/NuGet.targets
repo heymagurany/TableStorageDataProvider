@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+	<Import Project="$(SolutionDir)\.nuget\NuGet.targets"/>
+
+	<PropertyGroup>
+		<MajorNumber Condition="'$(MajorNumber)'==''">0</MajorNumber>
+		<MinorNumber Condition="'$(MinorNumber)'==''">0</MinorNumber>
+		<PatchNumber Condition="'$(PatchNumber)'==''">0</PatchNumber>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<NuGetDirectory Condition="'$(NuGetDirectory)'==''">$(MSBuildProjectDirectory)</NuGetDirectory>
+		<NuGetExePath Condition="'$(NuGetExePath)'==''">$(NuGetDirectory)\NuGet.exe</NuGetExePath>
+		<NuGetSpecFileName Condition="'$(NuGetSpecFileName)'==''">$(NuGetDirectory)\RegexRouting.nuspec</NuGetSpecFileName>
+		<NuGetPackageVersion>$(MajorNumber).$(MinorNumber).$(PatchNumber)</NuGetPackageVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<NuGetPackageProject
+			Include="$(SolutionDir)\TableStorageClient\TableStorageClient.csproj" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<AfterBuildDependsOn>
+			Pack;
+			Push
+		</AfterBuildDependsOn>
+	</PropertyGroup>
+	
+	<Target Name="AfterBuild" DependsOnTargets="$(AfterBuildDependsOn)" />
+
+	<Target Name="Pack"
+		Inputs="@(NuGetPackageProject)"
+		Outputs="$(OutDir)*.nupkg">
+		<Delete
+			Files="$(OutDir)*.nupkg" />
+		<Exec
+			Command="&quot;$(NuGetExePath)&quot; pack &quot;%(NuGetPackageProject.FullPath)&quot; -Version $(NuGetPackageVersion) -Properties OutDir=$(OutDir) -OutputDirectory &quot;$(OutDir.TrimEnd('\\'))&quot;"
+			WorkingDirectory="$(NuGetDirectory)" />
+		<CreateItem
+			Include="$(OutDir)*.nupkg">
+			<Output ItemName="NuGetPackageFileName" TaskParameter="Include" />
+		</CreateItem>
+	</Target>
+
+	<Target Name="Push">
+		<Exec
+			Command="&quot;$(NuGetExePath)&quot; push &quot;%(NuGetPackageFileName.FullPath)&quot; $(NuGetApiKey)"
+			WorkingDirectory="$(NuGetDirectory)"
+			Condition="'$(NuGetSource)'==''" />
+		<Copy
+			SourceFiles="@(NuGetPackageFileName)"
+			DestinationFiles="@(NuGetPackageFileName->'$(NuGetSource)\%(Filename)%(Extension)')" />
+	</Target>
+	
+</Project> 

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<licenseUrl>http://opensource.org/licenses/mit-license.php</licenseUrl>
+		<projectUrl>https://github.com/honkywater/TableStorageDataProvider</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>$description$</description>
+		<releaseNotes>Initial release</releaseNotes>
+		<copyright>Copyright © Matt Magurany 2012</copyright>
+		<tags>Azure, ADO.NET, Table Storage, Provider Factory</tags>
+	</metadata>
+	<files>
+		<file src="..\..\..\nuget\content\app.config.transform" target="content" />
+		<file src="..\..\..\nuget\content\web.config.transform" target="content" />
+	</files>
+</package>

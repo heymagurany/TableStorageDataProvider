@@ -7,5 +7,5 @@ namespace Magurany.Data.TableStorageClient
 	/// is checked for null in the containing method.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Parameter)]
-	public sealed class ValidatedNotNullAttribute : Attribute { }
+	internal sealed class ValidatedNotNullAttribute : Attribute { }
 }
