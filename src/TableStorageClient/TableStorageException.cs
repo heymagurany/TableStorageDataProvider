@@ -56,6 +56,11 @@ namespace Magurany.Data.TableStorageClient
 
 			Debug.Assert(stream != null);
 
+			if(stream.CanSeek)
+			{
+				stream.Seek(0, SeekOrigin.Begin);
+			}
+
 			XmlReaderSettings settings = new XmlReaderSettings();
 			settings.IgnoreComments = true;
 			settings.IgnoreWhitespace = true;

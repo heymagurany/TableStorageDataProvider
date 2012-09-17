@@ -61,6 +61,10 @@ namespace Magurany.Data.TableStorageClient
 			{
 				m_Writer.WriteAttributeString("null", TableStorageConstants.Edm.NAMESPACE, "true");
 			}
+			else if(typeof(Guid).Equals(parameter.DataType))
+			{
+				m_Writer.WriteString(value.ToString());
+			}
 			else
 			{
 				m_Writer.WriteValue(value);

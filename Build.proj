@@ -12,7 +12,7 @@
 	<PropertyGroup>
 		<MajorNumber>1</MajorNumber>
 		<MinorNumber>0</MinorNumber>
-		<PatchNumber>1</PatchNumber>
+		<PatchNumber>2</PatchNumber>
 		<BuildNumber>0</BuildNumber>
 		<Version>$(MajorNumber).$(MinorNumber).$(PatchNumber).$(BuildNumber)</Version>
 	</PropertyGroup>

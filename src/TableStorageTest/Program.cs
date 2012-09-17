@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
-using Microsoft.WindowsAzure;
 
 namespace Magurany.Data.TableStorageClient.Test
 {
@@ -19,7 +18,7 @@ namespace Magurany.Data.TableStorageClient.Test
 				connection.Open();
 
 				DbCommand selectCommand = connection.CreateCommand();
-				selectCommand.CommandText = "GET /MyTable()$PartitionKey eq @PartitionKey";
+				selectCommand.CommandText = "GET /MyTable()?$filter=PartitionKey eq @PartitionKey";
 				selectCommand.AddParameter("PartitionKey", DbType.String, "MyPartitionKey");
 
 				using(DbDataReader reader = selectCommand.ExecuteReader())
@@ -35,6 +34,11 @@ namespace Magurany.Data.TableStorageClient.Test
 				DbDataAdapter adapter = factory.CreateDataAdapter();
 				adapter.SelectCommand = selectCommand;
 				adapter.Fill(table);
+
+				DbCommand insertCommand = connection.CreateCommand("POST /MyTable()");
+				insertCommand.AddParameter("PartitionKey", DbType.String, "MyPartitionKey");
+				insertCommand.AddParameter("RowKey", DbType.Guid, Guid.NewGuid());
+				insertCommand.ExecuteNonQuery();
 			}
 		}
 	}
