@@ -23,6 +23,8 @@
 
 	<PropertyGroup>
 		<AfterBuildDependsOn>
+			$(AfterBuildDependsOn);
+			CleanPack;
 			Pack;
 			Push
 		</AfterBuildDependsOn>
@@ -30,11 +32,18 @@
 	
 	<Target Name="AfterBuild" DependsOnTargets="$(AfterBuildDependsOn)" />
 
+	<Target Name="CleanPack">
+		<CreateItem
+			Include="$(OutDir)*.nupkg">
+			<Output ItemName="NuGetPackageFileName" TaskParameter="Include" />
+		</CreateItem>
+		<Delete
+			Files="@(NuGetPackageFileName)" />
+	</Target>
+	
 	<Target Name="Pack"
 		Inputs="@(NuGetPackageProject)"
 		Outputs="$(OutDir)*.nupkg">
-		<Delete
-			Files="$(OutDir)*.nupkg" />
 		<Exec
 			Command="&quot;$(NuGetExePath)&quot; pack &quot;%(NuGetPackageProject.FullPath)&quot; -Version $(NuGetPackageVersion) -Properties OutDir=$(OutDir) -OutputDirectory &quot;$(OutDir.TrimEnd('\\'))&quot;"
 			WorkingDirectory="$(NuGetDirectory)" />

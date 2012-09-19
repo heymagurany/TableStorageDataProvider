@@ -99,7 +99,8 @@ namespace Magurany.Data.TableStorageClient
 		protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
 		{
 			TableStorageFieldCollection parameters = ConvertParameters();
-			HttpWebRequest request = GetRequest(parameters);
+			string entryId;
+			HttpWebRequest request = GetRequest(parameters, out entryId);
 
 			try
 			{
@@ -129,16 +130,16 @@ namespace Magurany.Data.TableStorageClient
 		public override int ExecuteNonQuery()
 		{
 			TableStorageFieldCollection parameters = ConvertParameters();
+			string entryId;
 
-			HttpWebRequest request = GetRequest(parameters);
+			HttpWebRequest request = GetRequest(parameters, out entryId);
 			request.ContentType = "application/atom+xml";
 
 			Stream requestStream = request.GetRequestStream();
 
 			using(TableStorageDataWriter writer = new TableStorageDataWriter(requestStream))
 			{
-				// TODO (Matt Magurany 7/28/2012): Get the ID of the entry
-				writer.WriteStartEntry(null);
+				writer.WriteStartEntry(entryId);
 
 				foreach(TableStorageField parameter in parameters)
 				{
@@ -187,7 +188,7 @@ namespace Magurany.Data.TableStorageClient
 			throw new NotSupportedException();
 		}
 
-		private HttpWebRequest GetRequest(TableStorageFieldCollection parameters)
+		private HttpWebRequest GetRequest(TableStorageFieldCollection parameters, out string entryId)
 		{
 			if(m_Connection.State != ConnectionState.Open)
 			{
@@ -240,6 +241,17 @@ namespace Magurany.Data.TableStorageClient
 			request.Headers["MaxDataServiceVersion"] = "2.0;NetFx";
 			request.Method = verb;
 			request.Timeout = CommandTimeout * 1000;
+
+			if(StringComparer.OrdinalIgnoreCase.Equals("PUT", verb) || StringComparer.OrdinalIgnoreCase.Equals("DELETE", verb))
+			{
+				request.Headers["If-Match"] = "*";
+
+				entryId = builder.Uri.AbsoluteUri;
+			}
+			else
+			{
+				entryId = null;
+			}
 
 			m_Connection.StorageAccount.Credentials.SignRequestLite(request);
 

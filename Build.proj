@@ -19,7 +19,9 @@
 
 	<ItemGroup>
 		<Projects
-			Include="$(SolutionDir)\**\*.csproj" />
+			Include="$(SolutionDir)\TableStorageClient\TableStorageClient.csproj;
+			         $(SolutionDir)\TableStorageTest\TableStorageTest.csproj;
+			         $(SolutionDir)\TableStorageAzure\TableStorageAzure.ccproj" />
 	</ItemGroup>
 
 	<PropertyGroup>
