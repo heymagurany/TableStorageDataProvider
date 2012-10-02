@@ -5,6 +5,11 @@ If you run into any trouble or have any suggestions, please log them in the [Iss
 
 ### Changelog
 
+#### v1.1.0
+
+* Added better support for null property values in table storage. If a property was null, it wasn't included in the data reader, which the default
+  DbDataAdapter couldn't handle.
+
 #### v1.0.2
 
 * Added a DbConnectionExtensions class, which contains a helper method for creating a command with command text.
@@ -16,4 +21,5 @@ If you run into any trouble or have any suggestions, please log them in the [Iss
 
 #### v1.0.0
 
-* Implemented ADO.NET Data Provider classes to allow developers to write code to access Windows Azure Table Storage with ADO.NET classes like DbCommand and DbDataAdapter.
+* Implemented ADO.NET Data Provider classes to allow developers to write code to access Windows Azure Table Storage with ADO.NET classes like DbCommand
+  and DbDataAdapter.

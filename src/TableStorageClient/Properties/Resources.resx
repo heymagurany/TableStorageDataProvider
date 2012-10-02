@@ -140,4 +140,7 @@
 	<data name="ParamterDirectionNotSupported">
 		<value><![CDATA[Only '{0}' is supported.]]></value>
 	</data>
+	<data name="MaximumBatchSizeExceeded">
+		<value xml:space="preserve">The maximum batch size must be less than {0}.</value>
+	</data>
 </root>

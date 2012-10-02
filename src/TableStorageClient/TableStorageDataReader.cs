@@ -9,7 +9,6 @@ namespace Magurany.Data.TableStorageClient
 {
 	public sealed class TableStorageDataReader : DbDataReader
 	{
-		private readonly int m_FieldCount;
 		private readonly bool m_HasRows;
 		private bool m_IsClosed;
 		private readonly XmlReader m_Reader;
@@ -33,8 +32,8 @@ namespace Magurany.Data.TableStorageClient
 
 				if(m_Next != null)
 				{
+					m_Current = m_Next;
 					m_HasRows = true;
-					m_FieldCount = m_Next.Count;
 				}
 			}
 		}
@@ -255,7 +254,7 @@ namespace Magurany.Data.TableStorageClient
 
 		public override int FieldCount
 		{
-			get { return m_FieldCount; }
+			get { return m_Current.Count; }
 		}
 
 		public override object this[int ordinal]
@@ -302,9 +301,9 @@ namespace Magurany.Data.TableStorageClient
 
 		public override string GetName(int ordinal)
 		{
-			if((m_Next != null) && (ordinal >= 0) && (ordinal < m_Next.Count))
+			if((m_Current != null) && (ordinal >= 0) && (ordinal < m_Current.Count))
 			{
-				return m_Next[ordinal].Name;
+				return m_Current[ordinal].Name;
 			}
 
 			throw ThrowHelper.ThrowObjectNotFound(ordinal, "ordinal", "column at ordinal");
@@ -312,11 +311,11 @@ namespace Magurany.Data.TableStorageClient
 
 		public override int GetOrdinal(string name)
 		{
-			if((m_Next != null) && m_Next.Contains(name))
+			if((m_Current != null) && m_Current.Contains(name))
 			{
-				TableStorageField field = m_Next[name];
-				
-				return m_Next.IndexOf(field);
+				TableStorageField field = m_Current[name];
+
+				return m_Current.IndexOf(field);
 			}
 
 			throw ThrowHelper.ThrowObjectNotFound(name, "name", "column with name");
@@ -324,7 +323,7 @@ namespace Magurany.Data.TableStorageClient
 
 		public override string GetDataTypeName(int ordinal)
 		{
-			if((m_Next != null) && (ordinal >= 0) && (ordinal < m_Next.Count))
+			if((m_Current != null) && (ordinal >= 0) && (ordinal < m_Current.Count))
 			{
 				return m_Current[ordinal].EdmType;
 			}
@@ -334,9 +333,9 @@ namespace Magurany.Data.TableStorageClient
 
 		public override Type GetFieldType(int ordinal)
 		{
-			if((m_Next != null) && (ordinal >= 0) && (ordinal < m_Next.Count))
+			if((m_Current != null) && (ordinal >= 0) && (ordinal < m_Current.Count))
 			{
-				return m_Next[ordinal].DataType;
+				return m_Current[ordinal].DataType;
 			}
 
 			throw ThrowHelper.ThrowObjectNotFound(ordinal, "ordinal", "column at ordinal");

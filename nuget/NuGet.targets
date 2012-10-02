@@ -35,10 +35,10 @@
 	<Target Name="CleanPack">
 		<CreateItem
 			Include="$(OutDir)*.nupkg">
-			<Output ItemName="NuGetPackageFileName" TaskParameter="Include" />
+			<Output ItemName="CleanNuGetPackageFileName" TaskParameter="Include" />
 		</CreateItem>
 		<Delete
-			Files="@(NuGetPackageFileName)" />
+			Files="@(CleanNuGetPackageFileName)" />
 	</Target>
 	
 	<Target Name="Pack"

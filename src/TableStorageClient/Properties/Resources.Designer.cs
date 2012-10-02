@@ -79,6 +79,15 @@ namespace Magurany.Data.TableStorageClient.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The maximum batch size must be less than {0}..
+        /// </summary>
+        internal static string MaximumBatchSizeExceeded {
+            get {
+                return ResourceManager.GetString("MaximumBatchSizeExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The expected parameter, &apos;{0},&apos; was not found..
         /// </summary>
         internal static string ParameterNotFound {
