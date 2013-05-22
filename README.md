@@ -5,6 +5,10 @@ If you run into any trouble or have any suggestions, please log them in the [Iss
 
 ### Changelog
 
+#### v1.1.1
+
+* Fixed a bug that caused query string parameters to be ignored.
+
 #### v1.1.0
 
 * Added better support for null property values in table storage. If a property was null, it wasn't included in the data reader, which the default
