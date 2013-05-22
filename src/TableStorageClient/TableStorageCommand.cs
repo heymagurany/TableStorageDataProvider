@@ -230,10 +230,9 @@ namespace Magurany.Data.TableStorageClient
 
 			// TODO (Matt Magurany 8/14/2012): If a transaction exists, add to existing batch
 
-			UriBuilder builder = new UriBuilder(tableClient.BaseUri);
-			builder.Path = builder.Path.TrimEnd('/') + path;
+			Uri url = new Uri(tableClient.BaseUri.AbsoluteUri.Trim('/') + path);
 
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(builder.Uri);
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 			request.Accept = "application/atom+xml,application/xml";
 			request.Headers["x-ms-version"] = m_Connection.ServerVersion;
 			request.Headers["Accept-Charset"] = "UTF-8";
@@ -246,7 +245,7 @@ namespace Magurany.Data.TableStorageClient
 			{
 				request.Headers["If-Match"] = "*";
 
-				entryId = builder.Uri.AbsoluteUri;
+				entryId = url.AbsoluteUri;
 			}
 			else
 			{

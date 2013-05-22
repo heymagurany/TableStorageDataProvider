@@ -12,7 +12,7 @@
 	<PropertyGroup>
 		<MajorNumber>1</MajorNumber>
 		<MinorNumber>1</MinorNumber>
-		<PatchNumber>0</PatchNumber>
+		<PatchNumber>1</PatchNumber>
 		<BuildNumber>0</BuildNumber>
 		<Version>$(MajorNumber).$(MinorNumber).$(PatchNumber).$(BuildNumber)</Version>
 	</PropertyGroup>
@@ -60,10 +60,10 @@
 		<MSBuild
 			Projects="@(Projects)"
 			Properties="Configuration=$(Configuration);
-				        OutDir=$(OutDir);
-				        SignAssembly=true;
-						Version=$(Version);
-				        AssemblyOriginatorKeyFile=$(AssemblyOriginatorKeyFile)"
+                  OutDir=$(OutDir);
+                  SignAssembly=true;
+                  Version=$(Version);
+                  AssemblyOriginatorKeyFile=$(AssemblyOriginatorKeyFile)"
 			Targets="Build" />
 	</Target>
 

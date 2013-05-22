@@ -10,7 +10,7 @@
 		<projectUrl>https://github.com/honkywater/TableStorageDataProvider/wiki</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>$description$</description>
-		<releaseNotes>Initial release</releaseNotes>
+		<releaseNotes>Fixed a bug that ignoring query string parameters</releaseNotes>
 		<copyright>Copyright © Matt Magurany 2012</copyright>
 		<tags>Azure, ADO.NET, Table Storage, Provider Factory</tags>
 	</metadata>
