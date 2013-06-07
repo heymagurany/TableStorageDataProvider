@@ -62,7 +62,10 @@ namespace Magurany.Data.TableStorageClient
 
 							if(column != null)
 							{
-								row[column] = dataReader.GetValue(index);
+								if(dataTable.Columns.Contains(column.ColumnName))
+								{
+									row[column] = dataReader.GetValue(index);
+								}
 							}
 						}
 
