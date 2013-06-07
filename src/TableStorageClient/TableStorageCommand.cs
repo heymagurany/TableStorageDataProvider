@@ -195,6 +195,11 @@ namespace Magurany.Data.TableStorageClient
 				throw new TableStorageException(Resources.ConnectionNotOpen);
 			}
 
+			if(string.IsNullOrWhiteSpace(m_Connection.ConnectionString))
+			{
+				throw new InvalidOperationException("The ConnectionString property has not been initialized.");
+			}
+
 			Regex queryExpression = new Regex(@"^(?<verb>GET|POST|PUT|DELETE)\s*(?<path>/(?<tablename>[a-z][a-z0-9]{2,63}).*)$", RegexOptions.IgnoreCase);
 			Match queryMatch = queryExpression.Match(CommandText);
 			string verb = queryMatch.Groups["verb"].Value;

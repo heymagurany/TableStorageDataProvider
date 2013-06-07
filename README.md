@@ -5,6 +5,10 @@ If you run into any trouble or have any suggestions, please log them in the [Iss
 
 ### Changelog
 
+#### v1.1.2
+
+* Fixed a bug that caused query string parameters to be ignored.
+
 #### v1.1.1
 
 * Fixed a bug that caused query string parameters to be ignored.
